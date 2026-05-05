@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+runs/
+*.pt
+detection_log.csv
+.env

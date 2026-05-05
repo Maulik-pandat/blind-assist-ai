@@ -5,14 +5,7 @@
 ║  Phir yeh script chalao — saare graphs ban jaayenge         ║
 ╚══════════════════════════════════════════════════════════════╝
 
-Graphs jo banenge:
-  1. Sabse zyada detect hone wale objects (Bar chart)
-  2. Danger tier distribution — HIGH vs NORMAL (Pie chart)
-  3. Objects ki average distance (Bar chart)
-  4. Direction distribution — left/center/right (Pie chart)
-  5. Time ke saath detections (Line chart)
-  6. Confidence score distribution (Histogram)
-"""
+
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -41,7 +34,7 @@ print(f"Time range: {df['timestamp'].min()} → {df['timestamp'].max()}")
 print("-" * 50)
 
 
-#  DASHBOARD — 6 graphs ek page pe
+#  DASHBOARD 
 
 fig = plt.figure(figsize=(18, 12))
 fig.suptitle("Blind Assist — Object Detection Analytics Dashboard",
@@ -153,9 +146,9 @@ print("\nDashboard saved: analytics_dashboard.png")
 plt.show()
 
 
-# ═══════════════════════════════════════════════════════════
+
 #  SUMMARY STATS — Mam ko bolne ke liye numbers
-# ═══════════════════════════════════════════════════════════
+
 print("\n" + "="*55)
 print("  SUMMARY — Mam ke saamine bolne ke liye")
 print("="*55)

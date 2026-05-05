@@ -1,10 +1,10 @@
 """
 ╔══════════════════════════════════════════════════════════════╗
 ║          BLIND ASSIST — ANALYTICS DASHBOARD                  ║
-║  Pehle blind_assist_v7.py chalao — detection_log.csv banega ║
-║  Phir yeh script chalao — saare graphs ban jaayenge         ║
+║  Pehle blind_assist_v7.py  — detection_log.csv  ║
+║  then run this script  — it will show u all the graphs       ║
 ╚══════════════════════════════════════════════════════════════╝
-
+"""
 
 
 import pandas as pd
@@ -82,7 +82,7 @@ ax2.set_title("Danger Tier Distribution\nHIGH vs NORMAL", fontweight='bold', fon
 
 # ── GRAPH 3: Average distance per object 
 ax3 = fig.add_subplot(gs[0, 2])
-avg_dist = (df[df["distance_m"] < 15]   # outliers hatane
+avg_dist = (df[df["distance_m"] < 15]   
             .groupby("object")["distance_m"]
             .mean()
             .sort_values()
@@ -127,7 +127,7 @@ ax5.set_xticklabels([f"Min {i+1}" for i in range(len(per_minute))],
                     rotation=30, ha='right', fontsize=8)
 
 
-# ── GRAPH 6: Confidence score histogram ─────────────────────
+# ── GRAPH 6: Confidence score histogram ───
 ax6 = fig.add_subplot(gs[1, 2])
 ax6.hist(df["confidence"], bins=20, color=BLUE_SHADES[2],
          edgecolor='white', linewidth=0.8)
@@ -140,7 +140,7 @@ ax6.set_ylabel("Frequency")
 ax6.legend(fontsize=9)
 
 
-# ── SAVE + SHOW ──────────────────────────────────────────────
+# ── SAVE + SHOW ─────
 plt.savefig("analytics_dashboard.png", dpi=150, bbox_inches='tight')
 print("\nDashboard saved: analytics_dashboard.png")
 plt.show()
@@ -148,9 +148,8 @@ plt.show()
 
 
 #  SUMMARY STATS — Mam ko bolne ke liye numbers
-
 print("\n" + "="*55)
-print("  SUMMARY — Mam ke saamine bolne ke liye")
+print("  SUMMARY ")
 print("="*55)
 print(f"  Total detections recorded   : {len(df)}")
 print(f"  Unique object types         : {df['object'].nunique()}")
@@ -164,4 +163,4 @@ print(f"  Average confidence score    : {df['confidence'].mean():.2f}")
 print(f"  Average distance detected   : {df[df['distance_m']<15]['distance_m'].mean():.2f} metres")
 print(f"  Closest detection ever      : {df['distance_m'].min():.2f} metres")
 print("="*55)
-print("\nYeh numbers mam ko bolo — bahut impressive lagenge! 😎")
+

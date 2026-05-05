@@ -6,7 +6,7 @@ model = YOLO("yolov8n.pt")
 # Fine-tuning on custom obstacle detection dataset
 results = model.train(
     data=r"C:\Users\mauli\Downloads\Obstacle detection.v1i.yolov8\data.yaml",
-    epochs=5,
+    epochs=30,
     imgsz=640,
     freeze=10,        # Early 10 layers freeze = proper Transfer Learning
     batch=16,

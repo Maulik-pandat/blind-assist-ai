@@ -88,7 +88,7 @@ python analytics.py
 
 ##  Sample Outputs
 
-![Phone Detection](outputs/phone.png)
+![Phone Detection](https://github.com/Maulik-pandat/blind-assist-ai/blob/main/outputs/Screenshot%202026-04-24%20005008.png)
 ![Bottle Detection](outputs/bottle.png)
 ![Analytics Dashboard](outputs/analytics_dashboard.png)
 

@@ -24,7 +24,7 @@ if not os.path.exists(LOG_FILE):
 
 df = pd.read_csv(LOG_FILE)
 if df.empty:
-    print("CSV mein koi data nahi hai! Pehle detection karo.")
+    print("no data in csv first do the detection ")
     sys.exit(1)
 
 df["timestamp"] = pd.to_datetime(df["timestamp"])

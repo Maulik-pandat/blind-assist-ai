@@ -1,7 +1,7 @@
 """
 ╔══════════════════════════════════════════════════════════════╗
 ║          BLIND ASSIST — V7                                   ║
-║  Extra Feature: Har detection CSV mein log hoti hai          ║
+║  Extra Feature: all detectioon save in csv file              ║
 ║  CSV file: detection_log.csv                                 ║
 ║  Hotkeys:  Q=Quit | R=Read Text                              ║
 ╚══════════════════════════════════════════════════════════════╝
@@ -21,9 +21,6 @@ from ultralytics import YOLO
 import pytesseract
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
-# ═══════════════════════════════════════════════════════════
-#  CONFIG
-# ═══════════════════════════════════════════════════════════
 
 CONF_THRESHOLD  = 0.6
 DANGER_COOLDOWN = 2.5
@@ -34,7 +31,7 @@ LOG_FILE        = "detection_log.csv"
 
 FOCAL_LENGTH = 615
 
-# Sirf yahi classes detect hongi — ghalat detections band!
+
 ALLOWED_CLASSES = {
     "person", "car", "bus", "truck", "motorcycle", "bicycle",
     "dog", "cat", "bottle", "cell phone", "chair", "traffic light",
@@ -58,9 +55,9 @@ HIGH_DANGER = {
     "car", "bus", "truck", "motorcycle", "train", "bicycle", "pole",
 }
 
-# ═══════════════════════════════════════════════════════════
+
 #  CSV LOGGER
-# ═══════════════════════════════════════════════════════════
+
 
 csv_file   = open(LOG_FILE, "w", newline="")
 csv_writer = csv.writer(csv_file)
@@ -71,9 +68,8 @@ def log_detection(label, conf, dist_m, direction, tier):
     csv_writer.writerow([ts, label, round(conf, 2), round(dist_m, 2), direction, tier])
     csv_file.flush()
 
-# ═══════════════════════════════════════════════════════════
+
 #  TTS
-# ═══════════════════════════════════════════════════════════
 
 _tts_queue = queue.Queue()
 
@@ -107,9 +103,7 @@ def speak(text: str):
     _tts_queue.put(text)
     print(f"[TTS] >> {text}")
 
-# ═══════════════════════════════════════════════════════════
 #  DISTANCE + DIRECTION HELPERS
-# ═══════════════════════════════════════════════════════════
 
 def estimate_distance(label, bbox_w):
     real_w = REAL_WIDTHS.get(label, DEFAULT_REAL_WIDTH)
@@ -155,9 +149,9 @@ def make_message(label, dist_m, direction, tier):
             return f"{label} ahead, {d} away"
         return f"{label} on your {direction}, {d} away"
 
-# ═══════════════════════════════════════════════════════════
+
 #  OCR
-# ═══════════════════════════════════════════════════════════
+
 
 def read_text(frame_bgr):
     gray = cv2.cvtColor(frame_bgr, cv2.COLOR_BGR2GRAY)
@@ -168,9 +162,8 @@ def read_text(frame_bgr):
     text = pytesseract.image_to_string(gray, config=custom_config).strip()
     speak(f"Text detected: {text}" if text else "No readable text found")
 
-# ═══════════════════════════════════════════════════════════
+
 #  INIT — DONO MODELS LOAD
-# ═══════════════════════════════════════════════════════════
 
 print("=" * 60)
 print("  BLIND ASSIST V7 — TRANSFER LEARNING EDITION")
@@ -195,11 +188,11 @@ last_speak_time = 0.0
 ocr_busy        = False
 total_logged    = 0
 
-print(f"\nChalu hai! Data log ho raha hai: {LOG_FILE}\n")
+print(f"\nits already on ! Data is logging: {LOG_FILE}\n")
 
-# ═══════════════════════════════════════════════════════════
+
 #  MAIN LOOP
-# ═══════════════════════════════════════════════════════════
+
 
 while True:
     loop_start = time.time()
@@ -207,7 +200,7 @@ while True:
     if not ret:
         break
 
-    # Dono models se results lo
+    # both models result
     results_custom = model_custom(frame, verbose=False)
     results_coco   = model_coco(frame, verbose=False)
 
@@ -237,14 +230,14 @@ while True:
             "conf": conf,
         })
 
-    # COCO model detections — sirf ALLOWED_CLASSES
+    # COCO model detections — only ALLOWED_CLASSES
     for box in results_coco[0].boxes:
         cls   = int(box.cls[0])
         label = results_coco[0].names[cls]
         conf  = float(box.conf[0])
         if conf < CONF_THRESHOLD:
             continue
-        if label not in ALLOWED_CLASSES:  # Filter!
+        if label not in ALLOWED_CLASSES:  
             continue
         x1, y1, x2, y2 = box.xyxy[0]
         width    = float(x2 - x1)
@@ -260,7 +253,7 @@ while True:
             "conf": conf,
         })
 
-    # Duplicates hata do (same label same direction)
+
     seen = set()
     unique_detections = []
     for d in detections:
@@ -331,4 +324,4 @@ _tts_queue.put(None)
 cap.release()
 cv2.destroyAllWindows()
 print(f"\nTotal {total_logged} detections logged → {LOG_FILE}")
-print("Ab analytics.py chalao graphs dekhne ke liye!")
+print("now we will analytics one to show all the graphs")

@@ -34,6 +34,14 @@ It also estimates distance and provides direction guidance (left, right, center)
 
 ---
 
+##  Model Training
+
+The system uses a pre-trained YOLOv8 model and applies transfer learning by fine-tuning it on a custom dataset collected using Roboflow.
+
+This approach reduces training time and improves detection accuracy.
+
+---
+
 ##  How It Works
 
 1. Camera captures live video feed
@@ -49,7 +57,7 @@ It also estimates distance and provides direction guidance (left, right, center)
 ##  Project Structure
 
 blind-assist-ai/
-│── train.py                # Model training (Transfer Learning)
+│── train.py                # Model training
 │── blind_assist_v7.py     # Main detection system
 │── analytics.py           # Analytics dashboard
 │── requirements.txt       # Dependencies
@@ -80,11 +88,8 @@ python analytics.py
 
 ##  Sample Outputs
 
-
-
 ![Phone Detection](outputs/phone.png)
 ![Bottle Detection](outputs/bottle.png)
-
 ![Analytics Dashboard](outputs/analytics_dashboard.png)
 
 ---
@@ -92,7 +97,7 @@ python analytics.py
 ##  Output Files
 
 * detection_log.csv → stores all detection data
-* analytics_dashboard.png → generated analytics graphs
+* analytics_dashboard.png → generated graphs
 
 ---
 
@@ -104,7 +109,7 @@ python analytics.py
 
 ---
 
-##  Use Cases
+## Use Cases
 
 * Assist visually impaired individuals
 * Real-time obstacle detection
@@ -112,7 +117,7 @@ python analytics.py
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
 Maulik Bhardwaj
 
